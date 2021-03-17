@@ -1,0 +1,18 @@
+name: 'buf-lint'
+description: >
+  Check that the input location passes lint checks.
+inputs:
+  # The definition of an input can be found in the following:
+  # https://docs.buf.build/inputs#specifying-an-input
+  input:
+    description: 'The input path.'
+    required: true
+    default: '.'
+  # The Github token MUST be referenced in the workflow file.
+  # https://docs.github.com/en/actions/reference/authentication-in-a-workflow
+  github_token:
+    description: 'The Github authentication token.'
+    required: true
+runs:
+  using: 'node12'
+  main: './dist/main.js'
