@@ -15,7 +15,7 @@ runner, so we'll use the [buf-setup][1] action to install it.
 
 ### Basic
 
-In most cases, all you'll need to do is configure `setup-buf` and the
+In most cases, all you'll need to do is configure [buf-setup][1] and the
 `github_token` (used to write comments in pull requests when applicable).
 
 ```yaml
