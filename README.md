@@ -3,6 +3,8 @@
 Lint Protobuf files with [buf](https://github.com/bufbuild/buf), and
 comment in-line on pull requests.
 
+  ![image](./static/img/lint.png)
+
 ## Usage
 
 Refer to the [action.yml](https://github.com/bufbuild/buf-lint-action/blob/master/action.yml)
