@@ -1,6 +1,9 @@
 name: 'buf-lint'
 description: >
   Check that the input location passes lint checks.
+branding:
+  icon: alert-circle
+  color: blue
 inputs:
   # The definition of an input can be found in the following:
   # https://docs.buf.build/inputs#specifying-an-input
