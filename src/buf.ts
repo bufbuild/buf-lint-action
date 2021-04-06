@@ -5,6 +5,10 @@
 import * as child from 'child_process';
 import { Error, isError } from './error';
 
+// lintExitCode is the exit code used to signal that buf
+// successfully found lint errors.
+const lintExitCode = 100
+
 // LintResult includes both the raw and formatted FileAnnotation
 // output of a 'buf lint` command execution. We include both so
 // that we preserve the same content users would see on the command line.
@@ -26,6 +30,7 @@ export interface FileAnnotation {
 
 // ExecException is a subset of the child.ExecException interface.
 interface ExecException {
+    status: number;
     stdout: Buffer | string;
     stderr: Buffer | string;
 }
@@ -39,11 +44,11 @@ export function lint(
     binaryPath: string,
     input: string,
 ): LintResult | Error {
-    const rawOutput = runCommand(`${binaryPath} lint ${input}`);
+    const rawOutput = runLintCommand(`${binaryPath} lint ${input}`);
     if (isError(rawOutput)) {
         return rawOutput
     }
-    const jsonOutput = runCommand(`${binaryPath} lint ${input} --error-format=json`);
+    const jsonOutput = runLintCommand(`${binaryPath} lint ${input} --error-format=json`);
     if (isError(jsonOutput)) {
         return jsonOutput
     }
@@ -59,27 +64,26 @@ export function lint(
     };
 }
 
-// runCommand runs the given command and maps its output into an
-// array of FileAnnotations.
-function runCommand(cmd: string): string | Error {
-    let output = '';
+// runLintCommand runs the given command. Note that this function assumes
+// the given command is 'buf lint', and handles its exit code as such.
+function runLintCommand(cmd: string): string | Error {
     try {
         child.execSync(cmd);
     } catch (error) {
-        let commandError = '';
         if (isExecException(error)) {
-            output = error.stdout.toString();
-            commandError = error.stderr.toString();
-        } else {
-            commandError = `failed to run command: ${cmd}`
-        }
-        if (commandError !== '') {
+            if (error.status == lintExitCode) {
+                // The command found warnings to report.
+                return error.stdout.toString();
+            }
             return {
-                message: commandError,
+                message: error.stderr.toString(),
             };
         }
+        return {
+            message: `failed to run command: ${cmd}`
+        };
     }
-    return output
+    return ''
 }
 
 // parseLines parses the given output lines into an array
@@ -122,6 +126,7 @@ function isFileAnnotation(o: any): o is FileAnnotation {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function isExecException(o: any): o is ExecException {
   return (
+    'status' in o &&
     'stdout' in o &&
     'stderr' in o
   );
