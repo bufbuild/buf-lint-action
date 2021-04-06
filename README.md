@@ -23,8 +23,8 @@ steps:
   - uses: actions/checkout@v2
   - uses: bufbuild/buf-setup-action@v0.1.0
     with:
-      version: '0.40.0'
-  - uses: bufbuild/buf-lint-action@v0.1.0
+      version: '0.41.0'
+  - uses: bufbuild/buf-lint-action@v0.2.0
     with:
       github_token: ${{ github.token }}
 ```
@@ -51,8 +51,8 @@ steps:
   - uses: actions/checkout@v2
   - uses: bufbuild/buf-setup-action@v0.1.0
     with:
-      version: '0.40.0'
-  - uses: bufbuild/buf-lint-action@v0.1.0
+      version: '0.41.0'
+  - uses: bufbuild/buf-lint-action@v0.2.0
     with:
       input: 'proto'
       github_token: ${{ github.token }}
