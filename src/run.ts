@@ -19,9 +19,8 @@ import * as child from 'child_process';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as semver from 'semver';
-import { lint } from './buf';
+import { lint, FileAnnotation } from './buf';
 import { Error, isError } from './error';
-import { postComments } from './github';
 
 // minimumBufVersion is the minimum buf version required to
 // run this action. At least this version is required because
@@ -127,23 +126,13 @@ async function runLint(): Promise<null|Error> {
     if (pullRequestNumber !== undefined) {
         // If this action was configured for pull requests, we post the
         // FileAnnotations as comments.
-        try {
-            await postComments(
-                authenticationToken,
-                owner,
-                repository,
-                pullRequestNumber,
-                result.fileAnnotations,
-            );
-        } catch (error) {
-            // Log the error, but continue so that we still write
-            // out the raw output to the user.
-            if (isError(error)) {
-                core.info(`Failed to write comments in-line: ${error.message}`);
-            } else {
-                core.info(`Failed to write comments in-line`);
-            }
-        }
+        result.fileAnnotations.forEach((fileAnnotation: FileAnnotation) => {
+          const { path, start_line, message } = fileAnnotation;
+          if (path === undefined || start_line === undefined) {
+            return;
+          }
+          core.error(`file=${path},line=${start_line},col=${0}::${message}`);
+        })
     }
 
     // Include the raw output so that the console includes sufficient context.
