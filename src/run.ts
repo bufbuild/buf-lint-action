@@ -131,7 +131,7 @@ async function runLint(): Promise<null|Error> {
           if (path === undefined || start_line === undefined) {
             return;
           }
-          core.error(`::error file=${path},line=${start_line},col=${0}::${message}`);
+          core.info(`::error file=${path},line=${start_line},col=${0}::${message}`);
         })
     }
 
