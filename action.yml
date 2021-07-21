@@ -11,11 +11,6 @@ inputs:
     description: 'The input path.'
     required: true
     default: '.'
-  # The Github token MUST be referenced in the workflow file.
-  # https://docs.github.com/en/actions/reference/authentication-in-a-workflow
-  github_token:
-    description: 'The Github authentication token.'
-    required: true
   buf_token:
     description: 'The buf authentication token used for private inputs.'
 runs:
