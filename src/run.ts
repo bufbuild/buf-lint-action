@@ -106,21 +106,17 @@ async function runLint(): Promise<null|Error> {
     // If this action was configured for pull requests, we post the
     // FileAnnotations as comments.
     result.fileAnnotations.forEach((fileAnnotation: FileAnnotation) => {
-      const { path, start_line, message } = fileAnnotation;
-      if (path === undefined || start_line === undefined) {
-        core.error(message);
-        return;
-      }
-      // This uses the `::error` message feature of Github Actions. It converts the message to
-      // an error log in the Github Actions console and creates an error annotation at the given
-      // file path and line. This is not currently supported with `core.error`.
-      // For more information, see the documentation:
-      // https://docs.github.com/en/actions/reference/workflow-commands-for-github-actions#setting-an-error-message
-      core.info(`::error file=${path},line=${start_line},col=${0}::${message}`);
+        const { path, start_line, start_column, message } = fileAnnotation;
+        if (path === undefined || start_line === undefined || start_column === undefined) {
+          core.error(message);
+          return;
+        }
+        // This uses the `::error` message feature of Github Actions. It converts the message to
+        // an error log in the Github Actions console and creates an error annotation at the given
+        // file path and line. This is not currently supported with `core.error`.
+        // For more information, see the documentation:
+        // https://docs.github.com/en/actions/reference/workflow-commands-for-github-actions#setting-an-error-message
+        core.info(`::error file=${path},line=${start_line},col=${start_column}::${message}`);
     })
-
-    // Include the raw output so that the console includes sufficient context.
-    return {
-        message: `buf found ${result.fileAnnotations.length} lint failures.\n${result.raw}`
-    };
+    return null;
 }
