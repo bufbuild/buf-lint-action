@@ -119,7 +119,5 @@ async function runLint(): Promise<null|Error> {
         core.info(`::error file=${path},line=${start_line},col=${start_column}::${message}`);
     })
     // Include the raw output so that the console includes sufficient context.
-    return {
-        message: `buf found ${result.fileAnnotations.length} lint failures.\n${result.raw}`
-    };
+    return {message: ""};
 }
