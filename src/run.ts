@@ -118,5 +118,8 @@ async function runLint(): Promise<null|Error> {
         // https://docs.github.com/en/actions/reference/workflow-commands-for-github-actions#setting-an-error-message
         core.info(`::error file=${path},line=${start_line},col=${start_column}::${message}`);
     })
-    return {message: result.raw};
+    // Include the raw output so that the console includes sufficient context.
+    return {
+        message: `buf found ${result.fileAnnotations.length} lint failures.\n${result.raw}`
+    };
 }
