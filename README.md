@@ -15,18 +15,14 @@ runner, so we'll use the [buf-setup][1] action to install it.
 
 ### Basic
 
-In most cases, all you'll need to do is configure [buf-setup][1] and the
-`github_token` (used to write comments in pull requests when applicable).
+In most cases, all you'll need to do is configure [buf-setup][1] to setup the `buf`
+binary for your action.
 
 ```yaml
 steps:
   - uses: actions/checkout@v2
-  - uses: bufbuild/buf-setup-action@v0.1.0
-    with:
-      version: '0.41.0'
-  - uses: bufbuild/buf-lint-action@v0.2.0
-    with:
-      github_token: ${{ github.token }}
+  - uses: bufbuild/buf-setup-action@v0.3.0
+  - uses: bufbuild/buf-lint-action@v0.3.0
 ```
 
 ### Inputs
@@ -49,13 +45,10 @@ $ tree
 ```yaml
 steps:
   - uses: actions/checkout@v2
-  - uses: bufbuild/buf-setup-action@v0.1.0
-    with:
-      version: '0.41.0'
-  - uses: bufbuild/buf-lint-action@v0.2.0
+  - uses: bufbuild/buf-setup-action@v0.3.0
+  - uses: bufbuild/buf-lint-action@v0.3.0
     with:
       input: 'proto'
-      github_token: ${{ github.token }}
 ```
 
 The `buf-lint` action is also commonly used alongside other `buf` actions,
