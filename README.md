@@ -7,7 +7,7 @@ comment in-line on pull requests.
 
 ## Usage
 
-Refer to the [action.yml](https://github.com/bufbuild/buf-lint-action/blob/master/action.yml)
+Refer to the [action.yml](https://github.com/bufbuild/buf-lint-action/blob/main/action.yml)
 to see all of the action parameters.
 
 The `buf-lint` action requires that `buf` is installed in the Github Action
