@@ -21,7 +21,7 @@ binary for your action.
 ```yaml
 steps:
   - uses: actions/checkout@v2
-  - uses: bufbuild/buf-setup-action@v0.3.0
+  - uses: bufbuild/buf-setup-action@v0.3.1
   - uses: bufbuild/buf-lint-action@v0.3.0
 ```
 
@@ -45,7 +45,7 @@ $ tree
 ```yaml
 steps:
   - uses: actions/checkout@v2
-  - uses: bufbuild/buf-setup-action@v0.3.0
+  - uses: bufbuild/buf-setup-action@v0.3.1
   - uses: bufbuild/buf-lint-action@v0.3.0
     with:
       input: 'proto'
