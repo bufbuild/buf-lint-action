@@ -1,6 +1,6 @@
 name: 'buf-lint'
 description: >
-  Check that the input location passes lint checks.
+  Check that the Input location passes lint checks.
 branding:
   icon: alert-circle
   color: blue
