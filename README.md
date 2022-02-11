@@ -28,7 +28,8 @@ configuration file. If any violations are detected, `buf-lint-action`
 ## Prerequisites
 
 For `buf-lint-action` to work. you need to install the `buf` CLI in the GitHub Actions Runner first.
-We recommend using the [`buf-setup`] Action to install it (as in the example [above](#usage)).
+We recommend using the [`buf-setup`][buf-setup] Action to install it (as in the example
+[above](#usage)).
 
 ## Configuration
 
@@ -39,11 +40,12 @@ Parameter | Description | Default
 
 > These parameters are derived from [`action.yml`](./action.yml)
 
-### Inputs
+## Common tasks
 
-Some repositories are structured so that their `buf.yaml` is defined
-in a sub-directory alongside their Protobuf sources, such as a `proto/`
-directory. In this case, you can specify the relative `input` path.
+### Run against Input in sub-directory
+
+Some repositories are structured in such a way that their [`buf.yaml`][buf-yaml] is defined in a
+sub-directory alongside their Protobuf sources, such as a proto/ directory. Here's an example:
 
 ```sh
 $ tree
@@ -56,17 +58,17 @@ $ tree
     └── buf.yaml
 ```
 
+In that case, you can target the `proto` sub-directory by setting `input` to `proto`:
+
 ```yaml
 steps:
   - uses: actions/checkout@v2
   - uses: bufbuild/buf-setup-action@v0.5.0
+  # Run lint only in the `proto` sub-directory
   - uses: bufbuild/buf-lint-action@v1
     with:
-      input: 'proto'
+      input: proto
 ```
-
-The `buf-lint` action is also commonly used alongside other `buf` actions,
-such as [buf-breaking][2] and [buf-push][3].
 
 [action]: https://docs.github.com/actions
 [buf]: https://buf.build
