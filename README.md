@@ -1,35 +1,51 @@
-# buf-lint-action
+# `buf-lint-action`
 
-Lint Protobuf files with [buf](https://github.com/bufbuild/buf), and
-comment in-line on pull requests.
+This [Action] enables you to [lint] Protobuf files with [Buf] in your GitHub Actions pipelines. If
+it detects violations of your configured [lint rules][lint.rules], it automatically creates inline
+comments under the rule-breaking lines in your `.proto` files.
 
-  ![image](./static/img/lint.png)
+![Per-line pull request comments](./static/img/lint.png)
 
 ## Usage
 
-Refer to the [action.yml](https://github.com/bufbuild/buf-lint-action/blob/main/action.yml)
-to see all of the action parameters.
-
-The `buf-lint` action requires that `buf` is installed in the Github Action
-runner, so we'll use the [buf-setup][1] action to install it.
-
-### Basic
-
-In most cases, all you'll need to do is configure [buf-setup][1] to setup the `buf`
-binary for your action.
+Here's an example usage of the `buf-lint` Action:
 
 ```yaml
-steps:
-  - uses: actions/checkout@v2
-  - uses: bufbuild/buf-setup-action@v0.5.0
-  - uses: bufbuild/buf-lint-action@v1
+on: pull_request # Apply to all pull requests
+jobs:
+  lint-protos:
+    # Run `git checkout`
+    - uses: actions/checkout@v2
+    # install the `buf` CLI
+    - uses: bufbuild/buf-setup-action@v0.5.0
+    # Run linting
+    - uses: bufbuild/buf-lint-action@v1
 ```
 
-### Inputs
+With this configuration, the `buf` CLI runs the lint checks specified in your [`buf.yaml`][buf-yaml]
+configuration file. If any violations are detected, `buf-lint-action`
 
-Some repositories are structured so that their `buf.yaml` is defined
-in a sub-directory alongside their Protobuf sources, such as a `proto/`
-directory. In this case, you can specify the relative `input` path.
+## Prerequisites
+
+For `buf-lint-action` to work. you need to install the `buf` CLI in the GitHub Actions Runner first.
+We recommend using the [`buf-setup`][buf-setup] Action to install it (as in the example
+[above](#usage)).
+
+## Configuration
+
+Parameter | Description | Default
+:---------|:------------|:-------
+`input` | The path of the [Input] you want to lint check | `.`
+`buf_token` | The Buf [authentication token][token] used for private [Inputs][input] |
+
+> These parameters are derived from [`action.yml`](./action.yml)
+
+## Common tasks
+
+### Run against Input in sub-directory
+
+Some repositories are structured in such a way that their [`buf.yaml`][buf-yaml] is defined in a
+sub-directory alongside their Protobuf sources, such as a proto/ directory. Here's an example:
 
 ```sh
 $ tree
@@ -42,18 +58,25 @@ $ tree
     └── buf.yaml
 ```
 
+In that case, you can target the `proto` sub-directory by setting `input` to `proto`:
+
 ```yaml
 steps:
   - uses: actions/checkout@v2
   - uses: bufbuild/buf-setup-action@v0.5.0
+  # Run lint only in the `proto` sub-directory
   - uses: bufbuild/buf-lint-action@v1
     with:
-      input: 'proto'
+      input: proto
 ```
 
-The `buf-lint` action is also commonly used alongside other `buf` actions,
-such as [buf-breaking][2] and [buf-push][3].
-
-  [1]: https://github.com/marketplace/actions/buf-setup
-  [2]: https://github.com/marketplace/actions/buf-breaking
-  [3]: https://github.com/marketplace/actions/buf-push
+[action]: https://docs.github.com/actions
+[buf]: https://buf.build
+[buf-breaking]: https://github.com/marketplace/actions/buf-breaking
+[buf-push]: https://github.com/marketplace/actions/buf-push
+[buf-setup]: https://github.com/bufbuild/buf-setup-action
+[buf-yaml]: https://docs.buf.build/configuration/v1/buf-yaml
+[input]: https://docs.buf.build/reference/inputs
+[lint]: https://docs.buf.build/lint/usage
+[lint.rules]: https://docs.buf.build/lint/rules
+[token]: https://docs.buf.build/bsr/authentication#create-an-api-token
