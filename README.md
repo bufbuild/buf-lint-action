@@ -8,7 +8,7 @@ comments under the rule-breaking lines in your `.proto` files.
 
 ## Usage
 
-Here's an example usage of the `buf-lint` Action:
+Here's an example usage of `buf-lint-action`:
 
 ```yaml
 on: pull_request # Apply to all pull requests
@@ -16,27 +16,28 @@ jobs:
   lint-protos:
     # Run `git checkout`
     - uses: actions/checkout@v2
-    # install the `buf` CLI
+    # Install the `buf` CLI
     - uses: bufbuild/buf-setup-action@v0.5.0
-    # Run linting
+    # Lint your Protobuf sources
     - uses: bufbuild/buf-lint-action@v1
 ```
 
 With this configuration, the `buf` CLI runs the lint checks specified in your [`buf.yaml`][buf-yaml]
-configuration file. If any violations are detected, `buf-lint-action`
+configuration file. If any violations are detected, `buf-lint-action` creates inline comments under
+the rule-breaking lines in your `.proto` files in the pull request.
 
 ## Prerequisites
 
-For `buf-lint-action` to work. you need to install the `buf` CLI in the GitHub Actions Runner first.
-We recommend using the [`buf-setup`][buf-setup] Action to install it (as in the example
+For `buf-lint-action` to work, you need to install the `buf` CLI in the GitHub Actions Runner first.
+We recommend using [`buf-setup-action`][buf-setup] to install it (as in the example
 [above](#usage)).
 
 ## Configuration
 
-Parameter | Description | Default
-:---------|:------------|:-------
-`input` | The path of the [Input] you want to lint check | `.`
-`buf_token` | The Buf [authentication token][token] used for private [Inputs][input] |
+Parameter | Description | Required | Default
+:---------|:------------|:---------|:-------
+`input` | The path of the [Input] you want to lint check | | `.`
+`buf_token` | The Buf [authentication token][token] used for any private [Inputs][input] | ✅ |
 
 > These parameters are derived from [`action.yml`](./action.yml)
 
