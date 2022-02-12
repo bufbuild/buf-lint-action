@@ -45,7 +45,7 @@ Parameter | Description | Default
 ### Run against Input in sub-directory
 
 Some repositories are structured in such a way that their [`buf.yaml`][buf-yaml] is defined in a
-sub-directory alongside their Protobuf sources, such as a proto/ directory. Here's an example:
+sub-directory alongside their Protobuf sources, such as a `proto` directory. Here's an example:
 
 ```sh
 $ tree
