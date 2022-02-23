@@ -36,14 +36,14 @@ We recommend using [`buf-setup-action`][buf-setup] to install it (as in the exam
 
 Parameter | Description | Required | Default
 :---------|:------------|:---------|:-------
-`input` | The path of the [Input] you want to lint check | | `.`
-`buf_token` | The Buf [authentication token][token] used for any private [Inputs][input] | ✅ |
+`input` | The path of the [Buf input][input] you want to lint check | | `.`
+`buf_token` | The Buf [authentication token][token] used for any private [input] | ✅ |
 
 > These parameters are derived from [`action.yml`](./action.yml)
 
 ## Common tasks
 
-### Run against Input in sub-directory
+### Run against input in sub-directory
 
 Some repositories are structured in such a way that their [`buf.yaml`][buf-yaml] is defined in a
 sub-directory alongside their Protobuf sources, such as a `proto` directory. Here's an example:
