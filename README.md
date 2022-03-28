@@ -17,7 +17,7 @@ jobs:
     # Run `git checkout`
     - uses: actions/checkout@v2
     # Install the `buf` CLI
-    - uses: bufbuild/buf-setup-action@v0.5.0
+    - uses: bufbuild/buf-setup-action@v1
     # Lint your Protobuf sources
     - uses: bufbuild/buf-lint-action@v1
 ```
@@ -64,7 +64,7 @@ In that case, you can target the `proto` sub-directory by setting `input` to `pr
 ```yaml
 steps:
   - uses: actions/checkout@v2
-  - uses: bufbuild/buf-setup-action@v0.5.0
+  - uses: bufbuild/buf-setup-action@v1
   # Run lint only in the `proto` sub-directory
   - uses: bufbuild/buf-lint-action@v1
     with:
