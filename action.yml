@@ -1,4 +1,4 @@
-name: 'buf-lint'
+name: "buf-lint"
 description: >
   Check that the Input location passes lint checks.
 branding:
@@ -8,10 +8,12 @@ inputs:
   # The definition of an input can be found in the following:
   # https://docs.buf.build/inputs#specifying-an-input
   input:
-    description: 'The input path.'
-    default: '.'
+    description: "The input path."
+    required: false
+    default: "."
   buf_token:
-    description: 'The buf authentication token used for private inputs.'
+    description: "The buf authentication token used for private inputs."
+    required: false
 runs:
-  using: 'node12'
-  main: './dist/main.js'
+  using: "node16"
+  main: "./dist/main.js"
