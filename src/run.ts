@@ -86,15 +86,7 @@ async function runLint(): Promise<null | Error> {
         message: `expected ${runnerTempEnvKey} to be defined`,
       };
     }
-
-    // TODO: For now, we hard-code the 'buf.build' remote. This will
-    // need to be refactored once we support federation between other
-    // BSR remotes.
-    const netrcPath = path.join(tempDir, ".netrc");
-    fs.writeFileSync(netrcPath, `machine buf.build\npassword ${bufToken}`, {
-      flag: "w",
-    });
-    process.env.NETRC = netrcPath;
+    process.env.BUF_TOKEN = buf_token
   }
 
   const result = lint(binaryPath, input);
