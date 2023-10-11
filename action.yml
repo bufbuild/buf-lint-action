@@ -17,5 +17,3 @@ inputs:
 runs:
   using: "node16"
   main: "./dist/main.js"
-  env:
-    BUF_TOKEN: ${{ inputs.buf_token }}
