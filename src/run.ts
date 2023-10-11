@@ -78,9 +78,8 @@ async function runLint(): Promise<null | Error> {
   }
 
   const bufToken = core.getInput("buf_token");
-  if (bufToken !== "") {
-    process.env["BUF_TOKEN"] = buf_token
-  }
+  core.exportVariable('BUF_TOKEN', bufToken);
+  core.setSecret(bufToken);
 
   const result = lint(binaryPath, input);
   if (isError(result)) {
