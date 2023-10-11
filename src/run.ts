@@ -79,14 +79,7 @@ async function runLint(): Promise<null | Error> {
 
   const bufToken = core.getInput("buf_token");
   if (bufToken !== "") {
-    // If the BUF_TOKEN is set, add it to the runner's .netrc.
-    const tempDir = process.env[runnerTempEnvKey] ?? "";
-    if (tempDir === "") {
-      return {
-        message: `expected ${runnerTempEnvKey} to be defined`,
-      };
-    }
-    process.env.BUF_TOKEN = buf_token
+    process.env["BUF_TOKEN"] = buf_token
   }
 
   const result = lint(binaryPath, input);
