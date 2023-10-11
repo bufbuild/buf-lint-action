@@ -15,8 +15,6 @@
 import * as core from "@actions/core";
 import * as io from "@actions/io";
 import * as child from "child_process";
-import * as fs from "fs";
-import * as path from "path";
 import * as semver from "semver";
 import { lint, FileAnnotation } from "./buf";
 import { Error, isError } from "./error";
@@ -27,13 +25,6 @@ import { Error, isError } from "./error";
 // in the following release:
 // https://github.com/bufbuild/buf/releases/tag/v0.41.0
 const minimumBufVersion = "0.41.0";
-
-// runnerTempEnvKey is the environment variable key
-// used to access a temporary directory. Although
-// undocumented in the Github Actions documentation,
-// this can be found in the @actions/tools-cache module.
-// https://github.com/actions/toolkit/blob/4bf916289e5e32bb7d1bd7f21842c3afeab3b25a/packages/tool-cache/src/tool-cache.ts#L701
-const runnerTempEnvKey = "RUNNER_TEMP";
 
 export async function run(): Promise<void> {
   try {
