@@ -55,7 +55,7 @@ export function lint(binaryPath: string, input: string): LintResult | Error {
     return rawOutput;
   }
   const jsonOutput = runLintCommand(
-    `${binaryPath} lint ${input} --error-format=json`
+    `${binaryPath} lint ${input} --error-format=json`,
   );
   if (isError(jsonOutput)) {
     return jsonOutput;
@@ -66,7 +66,7 @@ export function lint(binaryPath: string, input: string): LintResult | Error {
       .split("\n")
       .filter((elem) => {
         return elem !== "";
-      })
+      }),
   );
   if (isError(fileAnnotations)) {
     return fileAnnotations;
