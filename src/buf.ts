@@ -1,4 +1,4 @@
-// Copyright 2020-2022 Buf Technologies, Inc.
+// Copyright 2020-2024 Buf Technologies, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -55,7 +55,7 @@ export function lint(binaryPath: string, input: string): LintResult | Error {
     return rawOutput;
   }
   const jsonOutput = runLintCommand(
-    `${binaryPath} lint ${input} --error-format=json`
+    `${binaryPath} lint ${input} --error-format=json`,
   );
   if (isError(jsonOutput)) {
     return jsonOutput;
@@ -66,7 +66,7 @@ export function lint(binaryPath: string, input: string): LintResult | Error {
       .split("\n")
       .filter((elem) => {
         return elem !== "";
-      })
+      }),
   );
   if (isError(fileAnnotations)) {
     return fileAnnotations;
