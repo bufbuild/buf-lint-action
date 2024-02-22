@@ -30,8 +30,8 @@ jobs:
         run: make build && make checkgenerate
       - uses: bufbuild/buf-setup-action@v1.29.0-1
       - run: |
-          mkdir -p test
+          mkdir -p test/v1
           echo "version: v1" >> buf.yaml
-          echo 'syntax = "proto3"; package test; message A { string a = 1; }' >> test/test.proto
+          echo 'syntax = "proto3"; package test; message A { string a = 1; }' >> test/v1/test.proto
       - name: Validate Action
         uses: ./
