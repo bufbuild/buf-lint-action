@@ -28,3 +28,9 @@ jobs:
         run: make generate && make checkgenerate
       - name: Build
         run: make build && make checkgenerate
+      - uses: bufbuild/buf-setup-action@v1.29.0-1
+      - run: |
+          echo "version: v1" >> buf.yaml
+          echo 'syntax = "proto3"; message A { string a = 1; }' >> test.proto
+      - name: Validate Action
+        uses: ./
