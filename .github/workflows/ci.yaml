@@ -32,6 +32,6 @@ jobs:
       - run: |
           mkdir -p test/v1
           echo "version: v1" >> buf.yaml
-          echo 'syntax = "proto3"; package test; message A { string a = 1; }' >> test/v1/test.proto
+          echo 'syntax = "proto3"; package test.v1; message A { string a = 1; }' >> test/v1/test.proto
       - name: Validate Action
         uses: ./
