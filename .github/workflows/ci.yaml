@@ -29,7 +29,7 @@ jobs:
       - name: Build
         run: make build && make checkgenerate
       - name: Install Buf
-        uses: bufbuild/buf-setup-action@v1.29.0-1
+        uses: bufbuild/buf-setup-action@v1
       - name: Setup Test
         run: |
           mkdir -p test/v1
