@@ -1,5 +1,10 @@
 # `buf-lint-action`
 
+> [!NOTE]
+> This action has been deprecated in favor of the [`buf-action`][buf-action] which combines the
+> functionality of `buf-lint-action` with the ability to run Buf commands in the same step. Please
+> see the [`buf-action`][buf-action] documentation for more information.
+
 This [Action] enables you to [lint] Protobuf files with [Buf] in your GitHub Actions pipelines. If
 it detects violations of your configured [lint rules][lint.rules], it automatically creates inline
 comments under the rule-breaking lines in your `.proto` files.
@@ -72,6 +77,7 @@ steps:
 ```
 
 [action]: https://docs.github.com/actions
+[buf-action]: https://github.com/bufbuild/buf-action
 [buf]: https://buf.build
 [buf-breaking]: https://github.com/marketplace/actions/buf-breaking
 [buf-push]: https://github.com/marketplace/actions/buf-push
