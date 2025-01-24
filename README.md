@@ -3,7 +3,7 @@
 > [!NOTE]
 > This action has been deprecated in favor of the [`buf-action`][buf-action] which combines the
 > functionality of `buf-lint-action` with the ability to run Buf commands in the same step. Please
-> see the [`buf-action`][buf-action] documentation for more information.
+> see the [migration guide][buf-action-migration] for more information.
 
 This [Action] enables you to [lint] Protobuf files with [Buf] in your GitHub Actions pipelines. If
 it detects violations of your configured [lint rules][lint.rules], it automatically creates inline
@@ -78,6 +78,7 @@ steps:
 
 [action]: https://docs.github.com/actions
 [buf-action]: https://github.com/bufbuild/buf-action
+[buf-action-migration]: https://github.com/bufbuild/buf-action/blob/main/MIGRATION.md#buf-lint-action
 [buf]: https://buf.build
 [buf-breaking]: https://github.com/marketplace/actions/buf-breaking
 [buf-push]: https://github.com/marketplace/actions/buf-push
